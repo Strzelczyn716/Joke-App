@@ -6,11 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 
 @Composable
 fun JokeScreen(
-    navController: NavController
+    helloViewModel: JokeViewModel = JokeViewModel()
 ) {
     Surface(
         color = MaterialTheme.colors.background,
