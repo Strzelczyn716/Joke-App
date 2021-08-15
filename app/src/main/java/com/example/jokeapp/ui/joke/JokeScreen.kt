@@ -1,19 +1,26 @@
 package com.example.jokeapp.ui.joke
 
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun JokeScreen(
     helloViewModel: JokeViewModel = JokeViewModel()
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
-        modifier = Modifier.fillMaxSize()
+    val jokes = remember { DataProvider.jokeList }
+
+    LazyColumn(
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
+        items(
+            items = jokes,
+            itemContent = {
+                JokeListItem(joke = it)
+            })
     }
 }

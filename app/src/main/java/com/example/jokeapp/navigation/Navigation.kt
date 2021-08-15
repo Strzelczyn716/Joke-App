@@ -14,7 +14,7 @@ fun Nav() {
         startDestination = "joke_screen"
     ) {
         composable("joke_screen") {
-            JokeScreen(navController = navController)
+            JokeScreen()
         }
     }
 }
