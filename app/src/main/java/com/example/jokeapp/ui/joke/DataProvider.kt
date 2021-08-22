@@ -4,7 +4,7 @@ import com.example.jokeapp.data.model.Joke
 
 object DataProvider {
 
-    val jokeList = listOf(
+    val jokeList = mutableListOf<Joke>(
         Joke(
             id = 1,
             joke = "",

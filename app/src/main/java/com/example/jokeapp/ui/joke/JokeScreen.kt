@@ -7,12 +7,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun JokeScreen(
-    helloViewModel: JokeViewModel = JokeViewModel()
+    viewModel: JokeViewModel = hiltViewModel<JokeViewModel>()
 ) {
-    val jokes = remember { DataProvider.jokeList }
+    viewModel.add()
+    val jokes = remember { viewModel.data }
 
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
