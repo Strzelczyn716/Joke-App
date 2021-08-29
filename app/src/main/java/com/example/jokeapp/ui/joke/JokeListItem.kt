@@ -33,11 +33,11 @@ fun JokeListItem(joke: Joke) {
                     .align(Alignment.CenterVertically)
             ) {
                 if (joke.type == "single") {
-                    Text(text = joke.joke, style = typography.h6)
+                    Text(text = joke.joke.toString(), style = typography.h6)
 
                 } else {
-                    Text(text = joke.setup, style = typography.h6)
-                    Text(text = joke.delivery, style = typography.caption)
+                    Text(text = joke.setup.toString(), style = typography.h6)
+                    Text(text = joke.delivery.toString(), style = typography.caption)
                 }
                 if(joke.category == "Programming"){
                     Text(text = "Good Joke!", textAlign = TextAlign.Center)

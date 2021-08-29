@@ -21,12 +21,9 @@ class JokeViewModel @Inject constructor(
 
     fun add() {
         CoroutineScope(IO).launch {
-            DataProvider.jokeList.forEach {
-                repository.jokeAdd(it)
-            }
-            val data1 = jokeApi.getJoke()
+            val joke = jokeApi.getJoke()
             delay(2000)
-            repository.jokeAdd(data1)
+            repository.jokeAdd(joke)
         }
     }
 }

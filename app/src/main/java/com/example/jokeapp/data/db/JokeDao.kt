@@ -13,7 +13,7 @@ interface JokeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun jokeAdd(joke: Joke)
 
-    @Query("SELECT * FROM joke_table ORDER BY id DESC")
+    @Query("SELECT * FROM joke_table ORDER BY jokeId DESC")
     fun readAllData(): Flow<List<Joke>>
 
 }
