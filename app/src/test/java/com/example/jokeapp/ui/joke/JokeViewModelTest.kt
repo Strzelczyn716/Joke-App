@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.jokeapp.api.JokeApi
 import com.example.jokeapp.data.model.Joke
 import com.example.jokeapp.data.repository.JokeRepository
+import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.delay
@@ -40,6 +41,7 @@ class JokeViewModelTest {
             viewModel.add()
             delay(3000)
             //then
+            assertThat(viewModel.progress.value).isEqualTo(false)
         }
     }
 }
