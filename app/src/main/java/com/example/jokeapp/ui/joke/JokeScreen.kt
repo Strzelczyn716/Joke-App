@@ -1,6 +1,7 @@
 package com.example.jokeapp.ui.joke
 
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jokeapp.data.model.Joke
@@ -29,13 +31,15 @@ fun JokeScreen(
 ) {
     val jokes: List<Joke> by viewModel.data.observeAsState(emptyList())
     val progress: Boolean by viewModel.progress.observeAsState(false)
+    val error: String by viewModel.errorHandler.observeAsState("")
+    val context = LocalContext.current
     Scaffold(
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { viewModel.add() },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp),
-                modifier = Modifier.padding(end = 24.dp, bottom = 24.dp),
+                modifier = Modifier.padding(end = 24.dp, bottom = 48.dp),
                 text = { Text(text = "New joke!!!") },
             )
         },
@@ -60,6 +64,9 @@ fun JokeScreen(
                 ) {
                     CircularProgressIndicator()
                 }
+            }
+            if(error.isNotBlank()) {
+                Toast.makeText(context, error, Toast.LENGTH_LONG).show()
             }
         }
     )

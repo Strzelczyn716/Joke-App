@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +22,8 @@ class JokeViewModel @Inject constructor(
     val data get() = repository.readAllData().asLiveData()
     private val _progress = MutableLiveData(false)
     val progress get() = _progress
+    private val _errorHandler = MutableLiveData("")
+    val errorHandler get() = _errorHandler
 
     fun add() {
         if (progress.value == true) {
@@ -28,9 +31,13 @@ class JokeViewModel @Inject constructor(
         }
         CoroutineScope(IO).launch {
             _progress.postValue(true)
-            val joke = jokeApi.getJoke()
-            delay(2000)
-            repository.jokeAdd(joke)
+            try {
+                val joke = jokeApi.getJoke()
+                delay(2000)
+                repository.jokeAdd(joke)
+            }catch (e: Exception){
+                _errorHandler.postValue("Something went wrong")
+            }
             _progress.postValue(false)
         }
     }

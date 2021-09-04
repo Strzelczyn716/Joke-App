@@ -42,6 +42,7 @@ class JokeViewModelTest {
             delay(3000)
             //then
             assertThat(viewModel.progress.value).isEqualTo(false)
+            assertThat(viewModel.errorHandler.value).isEqualTo("")
         }
     }
 }
