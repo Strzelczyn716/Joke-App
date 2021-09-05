@@ -34,7 +34,7 @@ class JokeViewModelTest {
             //given
             val api = mockk<JokeApi>()
             val repository = mockk<JokeRepository>()
-            val viewModel = JokeViewModel(api, repository)
+            val viewModel = JokeViewModel(api, repository, mockk())
             coEvery { api.getJoke() } returns sampleJoke
             coEvery { repository.jokeAdd(any<Joke>()) } returns mockk()
             //when
