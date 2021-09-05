@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Joke App</string>
     <string name="error_message">Something went wrong</string>
+    <string name="error_connection">No connection</string>
 </resources>

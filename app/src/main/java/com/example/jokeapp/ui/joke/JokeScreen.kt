@@ -31,6 +31,7 @@ fun JokeScreen(
 ) {
     val jokes: List<Joke> by viewModel.data.observeAsState(emptyList())
     val progress: Boolean by viewModel.progress.observeAsState(false)
+    val networkState: Boolean by viewModel.networkState.observeAsState(false)
     val error: String by viewModel.errorHandler.observeAsState("")
     val context = LocalContext.current
     Scaffold(

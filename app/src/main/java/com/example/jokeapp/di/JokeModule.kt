@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.jokeapp.api.JokeApi
 import com.example.jokeapp.data.db.JokeDatabase
 import com.example.jokeapp.data.repository.JokeRepository
+import com.example.jokeapp.network.NetworkState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +30,7 @@ object JokeModule {
     @Provides
     fun provideRepository(@ApplicationContext context: Context) = JokeRepository(JokeDatabase.getDatabase(context).jokeDao())
 
+    @Singleton
+    @Provides
+    fun provideNetwork(@ApplicationContext context: Context) = NetworkState(context)
 }

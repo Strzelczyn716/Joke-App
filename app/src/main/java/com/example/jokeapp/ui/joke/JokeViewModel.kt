@@ -7,8 +7,8 @@ import androidx.lifecycle.asLiveData
 import com.example.jokeapp.R
 import com.example.jokeapp.api.JokeApi
 import com.example.jokeapp.data.repository.JokeRepository
+import com.example.jokeapp.network.NetworkState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -21,6 +21,7 @@ import javax.inject.Inject
 class JokeViewModel @Inject constructor(
     private val jokeApi: JokeApi,
     private val repository: JokeRepository,
+    val networkState: NetworkState,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
@@ -35,11 +36,15 @@ class JokeViewModel @Inject constructor(
     val errorHandler get() = _errorHandler
 
     fun add() {
+        _errorHandler.postValue("")
         if (progress.value == true) {
             return
         }
+        if (networkState.value == false){
+            _errorHandler.postValue(context.getString(R.string.error_connection))
+            return
+        }
         CoroutineScope(IO).launch {
-            _errorHandler.postValue("")
             _progress.postValue(true)
             try {
                 val joke = jokeApi.getJoke()

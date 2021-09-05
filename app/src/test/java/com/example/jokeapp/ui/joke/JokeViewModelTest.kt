@@ -5,8 +5,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.jokeapp.api.JokeApi
 import com.example.jokeapp.data.model.Joke
 import com.example.jokeapp.data.repository.JokeRepository
+import com.example.jokeapp.network.NetworkState
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -34,7 +36,9 @@ class JokeViewModelTest {
             //given
             val api = mockk<JokeApi>()
             val repository = mockk<JokeRepository>()
-            val viewModel = JokeViewModel(api, repository, mockk())
+            val networkState = mockk<NetworkState>()
+            val viewModel = JokeViewModel(api, repository, networkState,mockk())
+            every { networkState.value } returns true
             coEvery { api.getJoke() } returns sampleJoke
             coEvery { repository.jokeAdd(any<Joke>()) } returns mockk()
             //when
