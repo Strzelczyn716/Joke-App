@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.jokeapp.R
 import com.example.jokeapp.api.JokeApi
 import com.example.jokeapp.data.repository.JokeRepository
@@ -29,7 +31,13 @@ class JokeViewModel @Inject constructor(
         const val TIME_FOR_ANSWER = 2000L
     }
 
-    val data get() = repository.readAllData().asLiveData()
+    val data get() = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = {  repository.readAllData() }
+    ).flow
     private val _progress = MutableLiveData(false)
     val progress get() = _progress
     private val _errorHandler = MutableLiveData("")

@@ -1,5 +1,7 @@
 package com.example.jokeapp.data.db
 
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,6 +16,6 @@ interface JokeDao {
     suspend fun jokeAdd(joke: Joke)
 
     @Query("SELECT * FROM joke_table ORDER BY jokeId DESC")
-    fun readAllData(): Flow<List<Joke>>
+    fun readAllData(): PagingSource<Int, Joke>
 
 }

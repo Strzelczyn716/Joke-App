@@ -16,11 +16,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.jokeapp.data.model.Joke
 
 
@@ -29,7 +31,8 @@ import com.example.jokeapp.data.model.Joke
 fun JokeScreen(
     viewModel: JokeViewModel = hiltViewModel<JokeViewModel>()
 ) {
-    val jokes: List<Joke> by viewModel.data.observeAsState(emptyList())
+    val jokes = remember {viewModel.data}
+    val lazyPagingItems = jokes.collectAsLazyPagingItems()
     val progress: Boolean by viewModel.progress.observeAsState(false)
     val networkState: Boolean by viewModel.networkState.observeAsState(false)
     val error: String by viewModel.errorHandler.observeAsState("")
@@ -49,9 +52,9 @@ fun JokeScreen(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 items(
-                    items = jokes,
+                    items = lazyPagingItems.snapshot(),
                     itemContent = {
-                        JokeListItem(joke = it)
+                        it?.let { it1 -> JokeListItem(joke = it1) }
                     })
             }
             AnimatedVisibility(
