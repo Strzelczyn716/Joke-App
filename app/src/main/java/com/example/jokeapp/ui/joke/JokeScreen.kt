@@ -19,11 +19,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.jokeapp.data.model.Joke
+import com.example.jokeapp.R
 
 
 @ExperimentalAnimationApi
@@ -44,7 +46,9 @@ fun JokeScreen(
                 onClick = { viewModel.add() },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp),
                 modifier = Modifier.padding(end = 24.dp, bottom = 48.dp),
-                text = { Text(text = "New joke!!!") },
+                text = { Text(text = stringResource(id = R.string.button_text)) },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = Color.White
             )
         },
         content = {

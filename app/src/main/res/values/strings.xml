@@ -2,4 +2,6 @@
     <string name="app_name">Joke App</string>
     <string name="error_message">Something went wrong</string>
     <string name="error_connection">No connection</string>
+    <string name="button_text">New joke!!!</string>
+    <string name="good_joke">Good Joke!</string>
 </resources>
